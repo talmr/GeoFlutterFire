@@ -116,7 +116,10 @@ class GeoFireCollectionRef {
       });
       return filteredList.map((element) => element.documentSnapshot).toList();
     });
-    return filtered.asBroadcastStream();
+    return filtered.asBroadcastStream(onCancel: (sub) {
+      print("** onCancel");
+      sub.cancel();
+    });
   }
 
   Stream<List<DistanceDocSnapshot>> mergeObservable(
